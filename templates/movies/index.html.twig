@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des films{% endblock %}
+
+{% block stylesheets %}
+<style>
+.search {
+  display: flex;
+  justify-content: flex-end;
+}
+.movie {
+  margin: 0.8rem 0;
+  text-align: center;
+}
+.movie img {
+  width: 100%;
+}
+.movie .name {
+  margin-top: 0.8rem;
+  font-size: 1.2rem;
+}
+</style>
+{% endblock %}
+
+{% block body %}
+
+<div class="container">
+    <div class="search mt-3">
+      {{ form_start(form, {'attr': {'class': 'form-inline'}}) }}
+        {{ form_widget(form.name, {'attr': {'class': 'mr-sm-2'}}) }}
+        {{ form_widget(form.country, {'attr': {'class': 'mr-sm-2'}}) }}
+        {{ form_widget(form.author, {'attr': {'class': 'mr-sm-2'}}) }}
+        {{ form_row(form.search) }}
+      {{ form_end(form) }}
+    </div>
+    <div class="row" data-movies></div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+<script>
+function loadMovies () {
+  $.ajax({
+    url: '{{ path('movies') }}?offset=' + offset + '&' + search
+  }).done(function(data) {
+    offset += limit;
+    $('[data-movies]').append(data);
+    onLoad = false;
+  });
+}
+
+let search = window.location.search;
+let limit = {{ limit }};
+let offset = 0;
+let onLoad = false;
+
+if (search.startsWith('?')) {
+  search = search.substr('1');
+}
+
+loadMovies();
+
+$(window).scroll(function() {
+  if (onLoad) {
+    return;
+  }
+  if ($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
+      onLoad = true;
+      loadMovies();
+  }
+});
+</script>
+{% endblock %}
