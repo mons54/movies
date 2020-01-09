@@ -30,6 +30,12 @@
         "symfony/yaml": "5.0.*"
     },
     "require-dev": {
+        "codeception/codeception": "^4.0",
+        "codeception/module-asserts": "^1.1",
+        "codeception/module-db": "^1.0",
+        "codeception/module-doctrine2": "^1.0",
+        "codeception/module-phpbrowser": "^1.0",
+        "codeception/module-symfony": "^1.0",
         "doctrine/doctrine-fixtures-bundle": "^3.3",
         "symfony/debug-pack": "*",
         "symfony/maker-bundle": "^1.0",

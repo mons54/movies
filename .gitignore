@@ -14,3 +14,14 @@
 .phpunit.result.cache
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
+
+###> phpunit/phpunit ###
+/phpunit.xml
+.phpunit.result.cache
+###< phpunit/phpunit ###
+
+###> codeception/codeception ###
+/tests/_data/
+/tests/_output/
+/tests/_support/
+###< codeception/codeception ###
